@@ -3,6 +3,7 @@
     $scope.listas = new Array();
     $scope.requisicao = 0;
     $scope.hostName = {};
+    $scope.horario = Date.now();
 
     obter();
     $interval(callAtInterval, 10000);
@@ -35,4 +36,11 @@
         var audio = new Audio(alerta);
         audio.play();
     };
+
+    var obterHorario = function () {
+        $scope.horario = Date.now();
+    };
+
+    obterHorario();
+    $interval(obterHorario, 1000);
 });

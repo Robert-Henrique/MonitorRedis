@@ -3,7 +3,11 @@
     <div class="title">
         <h1 class="text-center">Monitoramento Redis</h1>
         <h2 class="text-center">Servidor: {{hostName}}</h2>
+        <h3 style="text-align:right">Horário: {{horario | date:'HH:mm:ss'}}</h3>
     </div>
+    <fildset>
+        <legend style="margin-bottom:0px"></legend>
+    </fildset>
     <form id="home-form" validatable class="form-horizontal">
         <div class="row">
             <div class="col-sm-12 page-content">
@@ -13,7 +17,7 @@
                             <table class="table table-striped table-bordered table-hover row-border hover" style="margin-top:15px">
                                 <thead>
                                     <tr>
-                                        <th style="text-align: center !important;" ng-repeat="item in listas" title="{{dia.nome}}">{{ item.nome }}</th>
+                                        <th style="text-align: center !important;font-size:18px;" ng-repeat="item in listas" title="{{dia.nome}}">{{ item.nome }}</th>
                                     </tr>
                                 </thead>
                                 <tbody>
