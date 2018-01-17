@@ -39,7 +39,8 @@ namespace MonitorRedis.Controllers
                     nome = x.Key,
                     tamanho = x.Value
                 }),
-                nivelDeIntensidade = listas.Where(l => l.Value == listas.Max(elem => elem.Value)).FirstOrDefault().Value
+                nivelDeIntensidade = listas.Where(l => l.Value == listas.Max(elem => elem.Value)).FirstOrDefault().Value,
+                hostName = System.Environment.MachineName
             });
         }
     }

@@ -2,6 +2,7 @@
 
     $scope.listas = new Array();
     $scope.requisicao = 0;
+    $scope.hostName = {};
 
     obter();
     $interval(callAtInterval, 10000);
@@ -16,7 +17,7 @@
         homeService.obter().then(function (response) {
             $scope.requisicao = new Date().getTime() - start;
             $scope.listas = response.data.listasDeIntegracoes;
-
+            $scope.hostName = response.data.hostName;
             emitirAlerta(response.data.nivelDeIntensidade);
         });
     };
