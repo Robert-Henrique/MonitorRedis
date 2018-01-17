@@ -1,0 +1,38 @@
+﻿<div class="title">
+    <h2 class="text-center">Monitoramento Redis</h2>
+</div>
+<div ng-controller="homeController">
+    <form id="home-form" validatable class="form-horizontal">
+        <div class="row">
+            <div class="col-sm-12 page-content">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="table-responsive">
+                            <table class="table table-striped table-bordered table-hover row-border hover" style="margin-top:15px">
+                                <thead>
+                                    <tr>
+                                        <th style="text-align: center !important;" ng-repeat="item in listas" title="{{dia.nome}}">{{ item.nome }}</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr style="height:100px;">
+                                        <td ng-repeat="item in listas" style="text-align: center !important;vertical-align: middle !important;">
+                                            <span title="{{item.nome}}" style="font-size:30px;font-weight:bold;color:{{item.tamanho > 10 ? 'red' : 'black'}}">
+                                                {{item.tamanho}}
+                                            </span>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <td colspan="4">Tempo da requisição: {{requisicao}} ms</td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
