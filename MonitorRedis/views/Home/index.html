@@ -23,9 +23,16 @@
                                 <tbody>
                                     <tr style="height:100px;">
                                         <td ng-repeat="item in listas" style="text-align: center !important;vertical-align: middle !important;">
-                                            <span title="{{item.nome}}" style="font-size:30px;font-weight:bold;color:{{item.tamanho > 10 ? 'red' : 'black'}}">
+                                            <span title="{{item.nome}}" style="font-size:30px;font-weight:bold;" ng-show="item.tamanho < 10">
                                                 {{item.tamanho}}
                                             </span>
+                                            <marquee direction="down" width="100" height="100" behavior="alternate" ng-show="item.tamanho > 10">
+                                                <marquee behavior="alternate">
+                                                    <span title="{{item.nome}}" style="font-size:30px;font-weight:bold;color:red">
+                                                        {{item.tamanho}}
+                                                    </span>
+                                                </marquee>
+                                            </marquee>
                                         </td>
                                     </tr>
                                 </tbody>
