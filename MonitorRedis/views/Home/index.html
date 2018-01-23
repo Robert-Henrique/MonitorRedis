@@ -17,19 +17,19 @@
                             <table class="table table-striped table-bordered table-hover row-border hover" style="margin-top:15px">
                                 <thead>
                                     <tr>
-                                        <th style="text-align: center !important;font-size:18px;" ng-repeat="item in listas" title="{{dia.nome}}">{{ item.nome }}</th>
+                                        <th style="text-align: center !important;font-size:18px;" ng-repeat="fila in filas" title="{{fila.Nome}}">{{ fila.NomeAbreviado }}</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr style="height:100px;">
-                                        <td ng-repeat="item in listas" style="text-align: center !important;vertical-align: middle !important;">
-                                            <span title="{{item.nome}}" style="font-size:30px;font-weight:bold;" ng-show="item.tamanho < 10">
-                                                {{item.tamanho}}
+                                        <td ng-repeat="fila in filas" style="text-align: center !important;vertical-align: middle !important;">
+                                            <span title="{{fila.NomeAbreviado}}" style="font-size:30px;font-weight:bold;" ng-show="fila.Tamanho < 10">
+                                                {{fila.Tamanho}}
                                             </span>
-                                            <marquee direction="down" width="100" height="100" behavior="alternate" ng-show="item.tamanho > 10" scrollDelay=1000>
+                                            <marquee direction="down" width="100" height="100" behavior="alternate" ng-show="fila.Tamanho > 10" scrollDelay=1000>
                                                 <marquee behavior="alternate">
-                                                    <span title="{{item.nome}}" style="font-size:30px;font-weight:bold;color:red">
-                                                        {{item.tamanho}}
+                                                    <span title="{{fila.Nome}}" style="font-size:30px;font-weight:bold;color:red">
+                                                        {{fila.Tamanho}}
                                                     </span>
                                                 </marquee>
                                             </marquee>

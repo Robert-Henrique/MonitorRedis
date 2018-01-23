@@ -1,4 +1,5 @@
-﻿using StackExchange.Redis;
+﻿using MonitorRedis.Models;
+using StackExchange.Redis;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,9 +11,12 @@ namespace MonitorRedis.Controllers
 {
     public class HomeController : ApiController
     {
-        static List<string> keys = new List<string>() { "portal.integration.queue.dbsii-Error",
-                                                        "portal.integration.queue.dbzim-Error",
-                                                        "portal.integration.queue.zim-Error" };
+        static List<Fila> filas = new List<Fila>()
+        {
+            new Fila("portal.integration.queue.dbsii-Error", "dbSII", 0),
+            new Fila("portal.integration.queue.dbzim-Error", "dbZIM", 0),
+            new Fila("portal.integration.queue.zim-Error", "ZIM", 0)
+        };
 
         public IHttpActionResult Get()
         {
@@ -23,42 +27,21 @@ namespace MonitorRedis.Controllers
             ConnectionMultiplexer redis = ConnectionMultiplexer.Connect(redisConf);
             var dataBase = redis.GetDatabase();
 
-            Dictionary<string, int> listas = new Dictionary<string, int>();
-
-            foreach (var key in keys)
+            foreach (var fila in filas)
             {
-                var response = redis.GetDatabase().Execute("LLEN", key);
+                var response = redis.GetDatabase().Execute("LLEN", fila.Nome);
                 var responsearray = (RedisValue[])response;
-                listas.Add(ObterNome(key), Convert.ToInt32(responsearray.Last()));
+                fila.Tamanho = Convert.ToInt32(responsearray.Last());
             }
 
             redis.Dispose();
 
             return Ok(new
             {
-                listasDeIntegracoes = listas.Select(x => new
-                {
-                    nome = x.Key,
-                    tamanho = x.Value
-                }),
-                nivelDeIntensidade = listas.Where(l => l.Value == listas.Max(elem => elem.Value)).FirstOrDefault().Value,
+                listasDeIntegracoes = filas,
+                nivelDeIntensidade = filas.Where(l => l.Tamanho == filas.Max(elem => elem.Tamanho)).FirstOrDefault(),
                 hostName = System.Environment.MachineName
             });
-        }
-
-        private string ObterNome(string key)
-        {
-            switch (key)
-            {
-                case "portal.integration.queue.dbsii-Error":
-                    return "dbSII";
-                case "portal.integration.queue.dbzim-Error":
-                    return "dbZIM";
-                case "portal.integration.queue.zim-Error":
-                    return "ZIM";
-                default:
-                    return "Fila não identificada";
-            }
         }
     }
 }

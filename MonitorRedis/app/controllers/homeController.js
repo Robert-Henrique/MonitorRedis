@@ -17,7 +17,7 @@
 
         homeService.obter().then(function (response) {
             $scope.requisicao = new Date().getTime() - start;
-            $scope.listas = response.data.listasDeIntegracoes;
+            $scope.filas = response.data.listasDeIntegracoes;
             $scope.hostName = response.data.hostName;
             emitirAlerta(response.data.nivelDeIntensidade);
         });
