@@ -10,10 +10,10 @@ namespace MonitorRedis.Controllers
 {
     public class HomeController : ApiController
     {
-        static List<string> keys = new List<string>() { "portal.integration.queue",
-                                                        "portal.integration.queue.dbsii",
-                                                        "portal.integration.queue.dbzim",
-                                                        "portal.integration.queue.zim" };
+        static List<string> keys = new List<string>() { "portal.integration.queue.dbsii-Error",
+                                                        "portal.integration.queue.dbzim-Error",
+                                                        "portal.integration.queue.zim-Error" };
+
         public IHttpActionResult Get()
         {
             var redisConf = new ConfigurationOptions();
@@ -29,8 +29,10 @@ namespace MonitorRedis.Controllers
             {
                 var response = redis.GetDatabase().Execute("LLEN", key);
                 var responsearray = (RedisValue[])response;
-                listas.Add(key, Convert.ToInt32(responsearray.Last()));
+                listas.Add(ObterNome(key), Convert.ToInt32(responsearray.Last()));
             }
+
+            redis.Dispose();
 
             return Ok(new
             {
@@ -42,6 +44,21 @@ namespace MonitorRedis.Controllers
                 nivelDeIntensidade = listas.Where(l => l.Value == listas.Max(elem => elem.Value)).FirstOrDefault().Value,
                 hostName = System.Environment.MachineName
             });
+        }
+
+        private string ObterNome(string key)
+        {
+            switch (key)
+            {
+                case "portal.integration.queue.dbsii-Error":
+                    return "dbSII";
+                case "portal.integration.queue.dbzim-Error":
+                    return "dbZIM";
+                case "portal.integration.queue.zim-Error":
+                    return "ZIM";
+                default:
+                    return "Fila não identificada";
+            }
         }
     }
 }
