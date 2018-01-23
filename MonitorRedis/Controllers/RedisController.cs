@@ -9,13 +9,13 @@ using System.Web.Http;
 
 namespace MonitorRedis.Controllers
 {
-    public class HomeController : ApiController
+    public class RedisController : ApiController
     {
         static List<Fila> filas = new List<Fila>()
         {
-            new Fila("portal.integration.queue.dbsii-Error", "dbSII", 0),
-            new Fila("portal.integration.queue.dbzim-Error", "dbZIM", 0),
-            new Fila("portal.integration.queue.zim-Error", "ZIM", 0)
+            new Fila(1, "portal.integration.queue.dbsii-Error", "dbSII", 0),
+            new Fila(2, "portal.integration.queue.dbzim-Error", "dbZIM", 0),
+            new Fila(3, "portal.integration.queue.zim-Error", "ZIM", 0)
         };
 
         public IHttpActionResult Get()

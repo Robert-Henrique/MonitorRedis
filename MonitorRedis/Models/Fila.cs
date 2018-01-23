@@ -7,12 +7,14 @@ namespace MonitorRedis.Models
 {
     public class Fila
     {
+        public int Id { get; set; }
         public string Nome { get; set; }
         public string NomeAbreviado { get; set; }
         public int Tamanho { get; set; }
 
-        public Fila(string nome, string nomeAbreviado, int tamanho)
+        public Fila(int id, string nome, string nomeAbreviado, int tamanho)
         {
+            this.Id = id;
             this.Nome = nome;
             this.NomeAbreviado = nomeAbreviado;
             this.Tamanho = tamanho;

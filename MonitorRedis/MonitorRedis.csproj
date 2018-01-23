@@ -117,6 +117,7 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="app\controllers\detalhesController.js" />
     <Content Include="assets\audio\ai_pai_para.mp3" />
     <Content Include="assets\audio\RedAlert.mp3" />
     <Content Include="assets\audio\Tornado.mp3" />
@@ -137,8 +138,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="app\app.js" />
-    <Content Include="app\controllers\homeController.js" />
-    <Content Include="app\services\homeService.js" />
+    <Content Include="app\controllers\redisController.js" />
+    <Content Include="app\services\redisService.js" />
     <Content Include="assets\css\bootstrap.min.css" />
     <Content Include="components\angular-animate\angular-animate.js" />
     <Content Include="components\angular-bootstrap\ui-bootstrap-tpls.js" />
@@ -158,12 +159,13 @@
     <Content Include="components\jquery\dist\jquery.js" />
     <Content Include="Global.asax" />
     <Content Include="index.html" />
-    <Content Include="views\Home\index.html" />
+    <Content Include="views\Redis\detalhes.html" />
+    <Content Include="views\Redis\index.html" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\WebApiConfig.cs" />
-    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\RedisController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>

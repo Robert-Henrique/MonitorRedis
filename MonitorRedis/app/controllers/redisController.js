@@ -1,4 +1,4 @@
-﻿app.controller('homeController', function ($scope, $interval, homeService) {
+﻿app.controller('redisController', function ($scope, $interval, redisService) {
 
     $scope.listas = new Array();
     $scope.requisicao = 0;
@@ -15,7 +15,7 @@
     function obter() {
         var start = new Date().getTime();
 
-        homeService.obter().then(function (response) {
+        redisService.obter().then(function (response) {
             $scope.requisicao = new Date().getTime() - start;
             $scope.filas = response.data.listasDeIntegracoes;
             $scope.hostName = response.data.hostName;
@@ -24,7 +24,7 @@
     };
 
     function emitirAlerta(nivelDeIntensidade) {
-        
+
         if (nivelDeIntensidade == 0)
             return;
 
@@ -32,7 +32,7 @@
 
         if (nivelDeIntensidade > 10)
             alerta = "assets/audio/Tornado.mp3";
-        
+
         var audio = new Audio(alerta);
         audio.play();
     };

@@ -4,12 +4,13 @@ app.config(function ($routeProvider, $locationProvider) {
 
     // remove o # da url
     //$locationProvider.html5Mode(true);
+
     $routeProvider
     .when('/', {
-        templateUrl: 'views/Home/index.html'
+        templateUrl: 'views/Redis/index.html'
     })
-    .when('/Home', {
-        templateUrl: 'views/Home/teste.html'
+    .when('/redis/detalhes/:id', {
+        templateUrl: 'views/Redis/detalhes.html'
     })
     .otherwise({
         redirectTo: '/'
