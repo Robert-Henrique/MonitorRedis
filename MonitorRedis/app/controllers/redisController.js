@@ -35,7 +35,6 @@
             alerta = "assets/audio/Tornado.mp3";
 
         var audio = new Audio(alerta);
-        console.log('pause: ', $scope.pauseAudio);
         if ($scope.pauseAudio == false)
             audio.play();
     };
