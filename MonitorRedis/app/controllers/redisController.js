@@ -4,6 +4,7 @@
     $scope.requisicao = 0;
     $scope.hostName = {};
     $scope.horario = Date.now();
+    $scope.pauseAudio = false;
 
     obter();
     var stop = $interval(callAtInterval, 10000);
@@ -34,7 +35,9 @@
             alerta = "assets/audio/Tornado.mp3";
 
         var audio = new Audio(alerta);
-        audio.play();
+        console.log('pause: ', $scope.pauseAudio);
+        if ($scope.pauseAudio == false)
+            audio.play();
     };
 
     var obterHorario = function () {
@@ -49,5 +52,12 @@
             $interval.cancel(stop);
             stop = undefined;
         }
+    };
+
+    $scope.controlarAudio = function () {
+        if ($scope.pauseAudio) 
+            $scope.pauseAudio = false;
+        else
+            $scope.pauseAudio = true;
     };
 });

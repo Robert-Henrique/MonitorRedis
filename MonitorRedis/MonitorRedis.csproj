@@ -121,6 +121,8 @@
     <Content Include="assets\audio\ai_pai_para.mp3" />
     <Content Include="assets\audio\RedAlert.mp3" />
     <Content Include="assets\audio\Tornado.mp3" />
+    <Content Include="assets\img\icone-no-audio.png" />
+    <Content Include="assets\img\icone-play.png" />
     <Content Include="packages.config" />
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
