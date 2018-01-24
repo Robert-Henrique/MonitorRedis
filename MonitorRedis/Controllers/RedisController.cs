@@ -36,7 +36,7 @@ namespace MonitorRedis.Controllers
             return Ok(new
             {
                 listasDeIntegracoes = filas,
-                nivelDeIntensidade = filas.Where(l => l.Tamanho == filas.Max(elem => elem.Tamanho)).FirstOrDefault(),
+                nivelDeIntensidade = filas.Where(l => l.Tamanho == filas.Max(elem => elem.Tamanho)).FirstOrDefault().Tamanho,
                 hostName = System.Environment.MachineName
             });
         }
