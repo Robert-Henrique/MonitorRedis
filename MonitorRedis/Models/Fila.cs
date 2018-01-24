@@ -11,6 +11,7 @@ namespace MonitorRedis.Models
         public string Nome { get; set; }
         public string NomeAbreviado { get; set; }
         public int Tamanho { get; set; }
+        public List<object> Erros { get; set; }
 
         public Fila(int id, string nome, string nomeAbreviado, int tamanho)
         {

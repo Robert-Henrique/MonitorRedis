@@ -6,7 +6,7 @@
     $scope.horario = Date.now();
 
     obter();
-    $interval(callAtInterval, 10000);
+    var stop = $interval(callAtInterval, 10000);
 
     function callAtInterval() {
         obter();
@@ -43,4 +43,11 @@
 
     obterHorario();
     $interval(obterHorario, 1000);
+
+    $scope.cancelarAlerta = function () {
+        if (angular.isDefined(stop)) {
+            $interval.cancel(stop);
+            stop = undefined;
+        }
+    };
 });
