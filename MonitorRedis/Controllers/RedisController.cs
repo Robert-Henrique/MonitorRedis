@@ -40,6 +40,7 @@ namespace MonitorRedis.Controllers
                 fila.Tamanho = ObterTamanhoDaFila(redis, fila);
 
             redis.Dispose();
+            redis.Close();
 
             return Ok(new
             {
