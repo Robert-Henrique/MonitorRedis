@@ -45,7 +45,7 @@ namespace MonitorRedis.Controllers
             {
                 filasDeIntegracoes = filasIntegracao,
                 filasDeIntegracoesComErros = filasIntegracaoComErro,
-                nivelDeIntensidade = filasIntegracao.Where(l => l.Tamanho == filasIntegracao.Max(elem => elem.Tamanho)).FirstOrDefault().Tamanho,
+                nivelDeIntensidade = filasIntegracaoComErro.Where(l => l.Tamanho == filasIntegracaoComErro.Max(elem => elem.Tamanho)).FirstOrDefault().Tamanho,
                 hostName = System.Environment.MachineName
             });
         }
