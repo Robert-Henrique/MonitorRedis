@@ -7,8 +7,8 @@
     </div>
     <fildset>
         <legend style="margin-bottom:0px"></legend>
-        <input type="image"  src="/assets/img/icone-play.png" width="30" height="30" ng-click="controlarAudio()" ng-show="pauseAudio == false"/>
-        <input type="image" src="/assets/img/icone-no-audio.png" width="30" height="30" ng-click="controlarAudio()" ng-show="pauseAudio"/>
+        <input type="image" src="/assets/img/icone-play.png" width="30" height="30" ng-click="controlarAudio()" ng-show="pauseAudio == false" />
+        <input type="image" src="/assets/img/icone-no-audio.png" width="30" height="30" ng-click="controlarAudio()" ng-show="pauseAudio" />
     </fildset>
     <form id="home-form" validatable class="form-horizontal">
         <div class="row">
@@ -19,14 +19,43 @@
                             <table class="table table-striped table-bordered table-hover row-border hover" style="margin-top:15px">
                                 <thead>
                                     <tr>
-                                        <th style="text-align: center !important;font-size:18px;" ng-repeat="fila in filas" title="{{fila.Nome}}">{{ fila.NomeAbreviado }}</th>
+                                        <th style="text-align:center !important;font-size:18px;" ng-repeat="fila in filasDeIntegracoes" title="{{fila.Nome}}" width="380px">{{ fila.NomeAbreviado }}</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr style="height:150px;">
-                                        <td ng-repeat="fila in filas" style="text-align: center !important;vertical-align: middle !important;background-color:black">
+                                        <td ng-repeat="fila in filasDeIntegracoes" style="text-align: center !important;vertical-align: middle !important;background-color:black">
                                             <div>
-                                                <span title="{{fila.NomeAbreviado}}" style="font-size:70px;font-weight:bold;color:yellow" ng-show="fila.Tamanho < 10">
+                                                <span title="{{fila.NomeAbreviado}}" style="font-size:70px;font-weight:bold;color:white">
+                                                    {{fila.Tamanho}}
+                                                </span>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <td colspan="4">Tempo da requisição: {{requisicao}} ms</td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="table-responsive">
+                            <table class="table table-striped table-bordered table-hover row-border hover" style="margin-top:15px">
+                                <thead>
+                                    <tr>
+                                        <th style="text-align: center !important;font-size:18px;" width="380px" ng-repeat="fila in filasDeIntegracoesComErros" title="{{fila.Nome}}">{{ fila.NomeAbreviado }}</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr style="height:150px;">
+                                        <td ng-repeat="fila in filasDeIntegracoesComErros" style="text-align: center !important;vertical-align: middle !important;background-color:black">
+                                            <div>
+                                                <span title="{{fila.NomeAbreviado}}" style="font-size:70px;font-weight:bold;color:white" ng-show="fila.Tamanho < 10">
                                                     {{fila.Tamanho}}
                                                 </span>
                                                 <marquee direction="down" width="100" height="100" behavior="alternate" ng-show="fila.Tamanho >= 10" scrollDelay=1000>

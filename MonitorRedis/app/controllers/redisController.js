@@ -1,6 +1,5 @@
 ﻿app.controller('redisController', function ($scope, $interval, redisService) {
 
-    $scope.listas = new Array();
     $scope.requisicao = 0;
     $scope.hostName = {};
     $scope.horario = Date.now();
@@ -18,7 +17,8 @@
 
         redisService.obter().then(function (response) {
             $scope.requisicao = new Date().getTime() - start;
-            $scope.filas = response.data.listasDeIntegracoes;
+            $scope.filasDeIntegracoes = response.data.filasDeIntegracoes;
+            $scope.filasDeIntegracoesComErros = response.data.filasDeIntegracoesComErros;
             $scope.hostName = response.data.hostName;
             emitirAlerta(response.data.nivelDeIntensidade);
         });
