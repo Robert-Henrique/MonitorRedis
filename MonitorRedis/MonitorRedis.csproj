@@ -123,6 +123,7 @@
     <Content Include="assets\audio\Tornado.mp3" />
     <Content Include="assets\img\icone-no-audio.png" />
     <Content Include="assets\img\icone-play.png" />
+    <Content Include="components\bootbox\bootbox.min.js" />
     <Content Include="packages.config" />
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

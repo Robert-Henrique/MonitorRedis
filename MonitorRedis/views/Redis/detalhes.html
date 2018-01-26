@@ -19,6 +19,7 @@
                                     <tr>
                                         <th style="text-align: center !important;font-size:18px;width:600px">Entidade</th>
                                         <th style="text-align: center !important;font-size:18px;">Exceção</th>
+                                        <th style="text-align: center !important;font-size:18px;">Ação</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -30,6 +31,9 @@
                                             <span title="{{item.nome}}">
                                                 {{item.Error}}
                                             </span>
+                                        </td>
+                                        <td>
+                                            <button type="button" class="btn btn-danger" ng-click="excluir(item)">Excluir</button>
                                         </td>
                                     </tr>
                                 </tbody>
