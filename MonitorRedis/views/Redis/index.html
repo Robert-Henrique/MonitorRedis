@@ -55,7 +55,7 @@
                                     <tr style="height:150px;">
                                         <td ng-repeat="fila in filasDeIntegracoesComErros" style="text-align: center !important;vertical-align: middle !important;background-color:black">
                                             <div>
-                                                <span title="{{fila.NomeAbreviado}}" style="font-size:70px;font-weight:bold;color:white" ng-show="fila.Tamanho < 10">
+                                                <span title="{{fila.NomeAbreviado}}" style="font-size:70px;font-weight:bold;color:{{fila.Tamanho > 1 ? 'yellow' : 'white'}}" ng-show="fila.Tamanho < 10">
                                                     {{fila.Tamanho}}
                                                 </span>
                                                 <marquee direction="down" width="100" height="100" behavior="alternate" ng-show="fila.Tamanho >= 10" scrollDelay=1000>
