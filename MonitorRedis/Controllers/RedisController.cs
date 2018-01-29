@@ -95,23 +95,19 @@ namespace MonitorRedis.Controllers
         [HttpDelete]
         public IHttpActionResult Delete(int filaId, string errorTimeStamp)
         {
-            //ConnectionMultiplexer redis = getConnectionRedis();
+            ConnectionMultiplexer redis = getConnectionRedis();
 
-            //var fila = filasIntegracaoComErro.Where(f => f.Id == filaId).FirstOrDefault();
-            //fila.Tamanho = ObterTamanhoDaFila(redis, fila);
-            //var redisValues = redis.GetDatabase().ListRange(fila.Nome, 0, fila.Tamanho);
+            var fila = filasIntegracaoComErro.Where(f => f.Id == filaId).FirstOrDefault();
+            fila.Tamanho = ObterTamanhoDaFila(redis, fila);
+            var redisValues = redis.GetDatabase().ListRange(fila.Nome, 0, fila.Tamanho);
 
-            //if (redisValues.Length > 0)
-            //{
-            //    fila.Erros = Array.ConvertAll(redisValues, value => JsonConvert.DeserializeObject(value)).ToList();
-            //    var erros = Array.ConvertAll(redisValues, value => JsonConvert.SerializeObject(value)).ToList();
-            //    var serializedEnvelope = erros.Where(e => e.Contains(errorTimeStamp)).FirstOrDefault();
+            if (redisValues.Length > 0)
+            {
+               
+            }
 
-            //    var response = redis.GetDatabase().Execute("LREM", fila.Nome, 0, serializedEnvelope);
-            //}
-
-            //redis.Dispose();
-            //redis.Close();
+            redis.Dispose();
+            redis.Close();
 
             return Ok();
         }
