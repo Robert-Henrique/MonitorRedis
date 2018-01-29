@@ -1,13 +1,9 @@
 ﻿using MonitorRedis.Models;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Serialization;
 using StackExchange.Redis;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net;
-using System.Net.Http;
-using System.Reflection;
 using System.Web.Http;
 
 namespace MonitorRedis.Controllers
@@ -80,6 +76,8 @@ namespace MonitorRedis.Controllers
             redis.Dispose();
             redis.Close();
 
+            fila.Erros = new List<object>();
+
             if (redisValues.Length > 0)
                 fila.Erros = Array.ConvertAll(redisValues, value => JsonConvert.DeserializeObject(value)).ToList();
 
@@ -99,11 +97,22 @@ namespace MonitorRedis.Controllers
 
             var fila = filasIntegracaoComErro.Where(f => f.Id == filaId).FirstOrDefault();
             fila.Tamanho = ObterTamanhoDaFila(redis, fila);
-            var redisValues = redis.GetDatabase().ListRange(fila.Nome, 0, fila.Tamanho);
+            var database = redis.GetDatabase();
+            var redisValues = database.ListRange(fila.Nome, 0, fila.Tamanho);
 
             if (redisValues.Length > 0)
             {
-               
+                for (int i = 0; i < redisValues.Length; i++)
+                {
+                    var redisValue = redisValues[i];
+                    bool removeItem = redisValue.ToString().Contains(errorTimeStamp);
+
+                    if (removeItem)
+                    {
+                        database.ListRemove(fila.Nome, redisValue);
+                        break;
+                    }
+                }
             }
 
             redis.Dispose();
