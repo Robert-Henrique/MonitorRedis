@@ -118,7 +118,6 @@
   <ItemGroup>
     <Content Include="app\controllers\detalhesController.js" />
     <Content Include="app\modules\gritterModule.js" />
-    <Content Include="assets\audio\ai_pai_para.mp3" />
     <Content Include="assets\audio\RedAlert.mp3" />
     <Content Include="assets\audio\Tornado.mp3" />
     <Content Include="assets\css\ace.css" />
