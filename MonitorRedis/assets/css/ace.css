@@ -133,6 +133,13 @@
     top: 33%;
 }
 
+.gritter-top-right {
+    position: fixed;
+    left: 75%;
+    right: 7%;
+    top: 2%;
+}
+
 @media only screen and (max-width: 767px) {
     .gritter-center {
         left: 16%;
