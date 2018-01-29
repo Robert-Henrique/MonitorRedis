@@ -1,4 +1,4 @@
-﻿app.controller('redisController', function ($scope, $interval, redisService) {
+﻿app.controller('redisController', function ($scope, $interval, $gritter, redisService) {
 
     $scope.requisicao = 0;
     $scope.hostName = {};
@@ -21,6 +21,7 @@
             $scope.filasDeIntegracoesComErros = response.data.filasDeIntegracoesComErros;
             $scope.hostName = response.data.hostName;
             emitirAlerta(response.data.nivelDeIntensidade);
+            exibirMensagem(response.data.nivelDeIntensidade);
         });
     };
 
@@ -59,4 +60,13 @@
         else
             $scope.pauseAudio = true;
     };
+
+    function exibirMensagem(quantidadeDeErros) {
+        if (quantidadeDeErros == 0)
+            $gritter.success('NENHUM ERRO DE INTEGRAÇÃO!');
+        else if (quantidadeDeErros < 10)
+            $gritter.warning(quantidadeDeErros + ' ERRO(S) DE INTEGRAÇÃO!');
+        else
+            $gritter.error(quantidadeDeErros + ' ERROS DE INTEGRAÇÃO!');
+    }
 });

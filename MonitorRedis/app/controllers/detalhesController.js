@@ -1,4 +1,4 @@
-﻿app.controller('detalhesController', function ($scope, $routeParams, $interval, redisService) {
+﻿app.controller('detalhesController', function ($scope, $routeParams, $interval, $gritter, redisService) {
 
     $scope.horario = Date.now();
     $scope.fila = new Object();
@@ -10,11 +10,17 @@
         $scope.voltar();
 
     var start = new Date().getTime();
+    obterDetalhes(id);
 
-    redisService.obterDetalhes(id).then(function (response) {
-        $scope.requisicao = new Date().getTime() - start;
-        $scope.fila = response.data;
-    });
+    function obterDetalhes(id) {
+        redisService.obterDetalhes(id).then(function (response) {
+            $scope.requisicao = new Date().getTime() - start;
+            $scope.fila = response.data;
+            
+            if ($scope.fila.tamanho == 0)
+                $scope.voltar();
+        });
+    };
 
     var obterHorario = function () {
         $scope.horario = Date.now();
@@ -35,7 +41,10 @@
 
         bootbox.confirm(msg, function (result) {
             if (result) {
-                redisService.excluir(id, item.ErrorTimeStamp);
+                redisService.excluir(id, item.ErrorTimeStamp).then(function () {
+                    $gritter.success('Erro excluído com sucesso!');
+                    obterDetalhes(id);
+                });
             }
         });
     };

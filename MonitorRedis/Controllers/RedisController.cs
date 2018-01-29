@@ -35,8 +35,8 @@ namespace MonitorRedis.Controllers
             foreach (var fila in filasIntegracaoComErro)
                 fila.Tamanho = ObterTamanhoDaFila(redis, fila);
 
-            redis.Dispose();
             redis.Close();
+            redis.Dispose();
 
             return Ok(new
             {
@@ -73,8 +73,8 @@ namespace MonitorRedis.Controllers
             fila.Tamanho = ObterTamanhoDaFila(redis, fila);
             var redisValues = redis.GetDatabase().ListRange(fila.Nome, 0, fila.Tamanho);
 
-            redis.Dispose();
             redis.Close();
+            redis.Dispose();
 
             fila.Erros = new List<object>();
 
@@ -115,8 +115,8 @@ namespace MonitorRedis.Controllers
                 }
             }
 
-            redis.Dispose();
             redis.Close();
+            redis.Dispose();
 
             return Ok();
         }

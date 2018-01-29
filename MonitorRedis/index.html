@@ -5,16 +5,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>UCDB - Monitor Redis</title>
     
-    <script src="components/jquery/dist/jquery.js"></script>
+    
     <link href="assets/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="components/jquery.gritter/css/jquery.gritter.css" rel="stylesheet" />
+    <link href="assets/css/ace.css" rel="stylesheet" />
+
+    <script src="components/jquery/dist/jquery.js"></script>
     <script src="components/bootstrap/dist/js/bootstrap.js"></script>
     <script src="components/angular/angular.js"></script>
     <script src="components/angular/angular-route.js"></script>
     <script src="components/bootbox/bootbox.min.js"></script>
+    <script src="components/jquery.gritter/js/jquery.gritter.js"></script>
+
     <script src="app/app.js"></script>
+    <script src="app/modules/gritterModule.js"></script>
     <script src="app/controllers/redisController.js"></script>
     <script src="app/controllers/detalhesController.js"></script>
     <script src="app/services/redisService.js"></script>
+
     <script type="text/javascript">
         $(function () {
             bootbox.setDefaults({

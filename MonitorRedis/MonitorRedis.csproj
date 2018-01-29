@@ -117,12 +117,20 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="app\controllers\detalhesController.js" />
+    <Content Include="app\modules\gritterModule.js" />
     <Content Include="assets\audio\ai_pai_para.mp3" />
     <Content Include="assets\audio\RedAlert.mp3" />
     <Content Include="assets\audio\Tornado.mp3" />
+    <Content Include="assets\css\ace.css" />
     <Content Include="assets\img\icone-no-audio.png" />
     <Content Include="assets\img\icone-play.png" />
     <Content Include="components\bootbox\bootbox.min.js" />
+    <Content Include="components\jquery.gritter\css\jquery.gritter.css" />
+    <Content Include="components\jquery.gritter\images\gritter-light.png" />
+    <Content Include="components\jquery.gritter\images\gritter-long.png" />
+    <Content Include="components\jquery.gritter\images\gritter.png" />
+    <Content Include="components\jquery.gritter\images\ie-spacer.gif" />
+    <Content Include="components\jquery.gritter\js\jquery.gritter.js" />
     <Content Include="packages.config">
       <SubType>Designer</SubType>
     </Content>
