@@ -2,6 +2,7 @@
 
     $scope.requisicao = 0;
     $scope.hostName = {};
+    $scope.IP = {};
     $scope.horario = Date.now();
     $scope.pauseAudio = false;
 
@@ -20,6 +21,7 @@
             $scope.filasDeIntegracoes = response.data.filasDeIntegracoes;
             $scope.filasDeIntegracoesComErros = response.data.filasDeIntegracoesComErros;
             $scope.hostName = response.data.hostName;
+            $scope.IP = response.data.IP;
             emitirAlerta(response.data.nivelDeIntensidade);
             exibirMensagem(response.data.nivelDeIntensidade);
         });
@@ -59,6 +61,15 @@
             $scope.pauseAudio = false;
         else
             $scope.pauseAudio = true;
+    };
+
+    $scope.color = function (tamanho) {
+        if (tamanho == 0)
+            return 'white';
+        else if (tamanho < 10)
+            return 'yellow';
+        else
+            return 'red';
     };
 
     function exibirMensagem(quantidadeDeErros) {

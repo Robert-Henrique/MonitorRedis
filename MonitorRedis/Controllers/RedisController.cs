@@ -4,6 +4,7 @@ using StackExchange.Redis;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Web.Http;
 
 namespace MonitorRedis.Controllers
@@ -38,12 +39,14 @@ namespace MonitorRedis.Controllers
             redis.Close();
             redis.Dispose();
 
+            string hostName = Dns.GetHostName();
             return Ok(new
             {
                 filasDeIntegracoes = filasIntegracao,
                 filasDeIntegracoesComErros = filasIntegracaoComErro,
                 nivelDeIntensidade = filasIntegracaoComErro.Where(l => l.Tamanho == filasIntegracaoComErro.Max(elem => elem.Tamanho)).FirstOrDefault().Tamanho,
-                hostName = System.Environment.MachineName
+                hostName = hostName,
+                IP = Dns.GetHostByName(hostName).AddressList[0].ToString()
             });
         }
 

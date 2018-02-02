@@ -3,6 +3,7 @@
     <div class="title">
         <h1 class="text-center">Monitoramento da Integração</h1>
         <h2 class="text-center">Servidor: {{hostName}}</h2>
+        <h2 class="text-center">IP: {{IP}}</h2>
         <h3 style="text-align:right">Horário: {{horario | date:'HH:mm:ss'}}</h3>
     </div>
     <fildset>
@@ -55,16 +56,9 @@
                                     <tr style="height:150px;">
                                         <td ng-repeat="fila in filasDeIntegracoesComErros" style="text-align: center !important;vertical-align: middle !important;background-color:black">
                                             <div>
-                                                <span title="{{fila.NomeAbreviado}}" style="font-size:70px;font-weight:bold;color:{{fila.Tamanho > 1 ? 'yellow' : 'white'}}" ng-show="fila.Tamanho < 10">
+                                                <span title="{{fila.NomeAbreviado}}" style="font-size:70px;font-weight:bold;color:{{color(fila.Tamanho)}}">
                                                     {{fila.Tamanho}}
                                                 </span>
-                                                <marquee direction="down" width="100" height="100" behavior="alternate" ng-show="fila.Tamanho >= 10" scrollDelay=1000>
-                                                    <marquee behavior="alternate">
-                                                        <span title="{{fila.Nome}}" style="font-size:70px;font-weight:bold;color:red">
-                                                            {{fila.Tamanho}}
-                                                        </span>
-                                                    </marquee>
-                                                </marquee>
                                             </div>
                                             <div ng-show="fila.Tamanho > 0">
                                                 <a href="#redis/detalhes/{{fila.Id}}" ng-click="cancelarAlerta()" style="font-size:18px">detalhes</a>
