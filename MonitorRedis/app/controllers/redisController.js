@@ -7,7 +7,7 @@
     $scope.pauseAudio = false;
 
     obter();
-    var stop = $interval(callAtInterval, 10000);
+    var stop = $interval(callAtInterval, 5000);
 
     function callAtInterval() {
         obter();
