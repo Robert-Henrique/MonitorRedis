@@ -15,14 +15,16 @@ namespace MonitorRedis.Controllers
         {
             new Fila(1, "portal.integration.queue.dbsii", "dbSII - Integração", 0),
             new Fila(2, "portal.integration.queue.dbzim", "dbZIM - Integração", 0),
-            new Fila(3, "portal.integration.queue.zim", "ZIM - Integração", 0)
+            new Fila(3, "portal.integration.queue.zim", "ZIM - Integração", 0),
+            new Fila(4, "portal.integration.queue.mysql", "MySql - Integração", 0)
         };
 
         static List<Fila> filasIntegracaoComErro = new List<Fila>()
         {
             new Fila(1, "portal.integration.queue.dbsii-Error", "dbSII - Erro", 0),
             new Fila(2, "portal.integration.queue.dbzim-Error", "dbZIM - Erro", 0),
-            new Fila(3, "portal.integration.queue.zim-Error", "ZIM - Erro", 0)
+            new Fila(3, "portal.integration.queue.zim-Error", "ZIM - Erro", 0),
+            new Fila(4, "portal.integration.queue.mysql-Error", "MySql - Erro", 0)
         };
 
         [ActionName("ObterFilas")]
@@ -45,7 +47,7 @@ namespace MonitorRedis.Controllers
                 filasDeIntegracoes = filasIntegracao,
                 filasDeIntegracoesComErros = filasIntegracaoComErro,
                 nivelDeIntensidade = filasIntegracaoComErro.Where(l => l.Tamanho == filasIntegracaoComErro.Max(elem => elem.Tamanho)).FirstOrDefault().Tamanho,
-                hostName = hostName,
+                hostName,
                 IP = Dns.GetHostByName(hostName).AddressList[0].ToString()
             });
         }
