@@ -32,10 +32,7 @@
         if (nivelDeIntensidade == 0)
             return;
 
-        var alerta = "assets/audio/RedAlert.mp3";
-
-        if (nivelDeIntensidade > 10)
-            alerta = "assets/audio/Tornado.mp3";
+        var alerta = "assets/audio/Beep.mp3";
 
         var audio = new Audio(alerta);
         if ($scope.pauseAudio == false)
