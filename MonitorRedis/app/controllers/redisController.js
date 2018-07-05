@@ -22,6 +22,7 @@
             $scope.filasDeIntegracoesComErros = response.data.filasDeIntegracoesComErros;
             $scope.hostName = response.data.hostName;
             $scope.IP = response.data.IP;
+            $scope.InformacoesServidor = response.data.InformacoesServidor;
             emitirAlerta(response.data.nivelDeIntensidade);
             exibirMensagem(response.data.nivelDeIntensidade);
         });

@@ -1,0 +1,55 @@
+﻿<div ng-controller="redisController">
+    <div class="title">
+        <h1 class="text-center">Monitoramento da Integração</h1>
+    </div>
+    <fildset>
+        <legend style="margin-bottom:0px"></legend>
+    </fildset>
+    <form validatable class="form-horizontal">
+        <div class="row">
+            <div class="col-sm-12 page-content">
+                <div class="table-responsive">
+                    <table class="table table-striped table-bordered table-hover row-border hover" style="margin-top:15px">
+                        <thead>
+                            <tr>
+                                <th ng-repeat="info in InformacoesServidor" ng-if="$index <= 2">{{info.Titulo}}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td ng-repeat="info in InformacoesServidor" ng-if="$index <= 2">
+                                    <pre>{{info.Descricao}}</pre>
+                                </td>
+                            </tr>
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <td colspan="4">Tempo da requisição: {{requisicao}} ms</td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                    <table class="table table-striped table-bordered table-hover row-border hover" style="margin-top:15px">
+                        <thead>
+                            <tr>
+                                <th ng-repeat="info in InformacoesServidor" ng-if="$index >= 3">{{info.Titulo}}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td ng-repeat="info in InformacoesServidor" ng-if="$index >= 3">
+                                    <pre>{{info.Descricao}}</pre>
+                                </td>
+                            </tr>
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <td colspan="4">Tempo da requisição: {{requisicao}} ms</td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+    </form>
+</div>

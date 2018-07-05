@@ -38,6 +38,8 @@ namespace MonitorRedis.Controllers
             foreach (var fila in filasIntegracaoComErro)
                 fila.Tamanho = ObterTamanhoDaFila(redis, fila);
 
+            var informacoesServidor = ObterInformacaoServidor(redis);
+
             redis.Close();
             redis.Dispose();
 
@@ -48,7 +50,8 @@ namespace MonitorRedis.Controllers
                 filasDeIntegracoesComErros = filasIntegracaoComErro,
                 nivelDeIntensidade = filasIntegracaoComErro.Where(l => l.Tamanho == filasIntegracaoComErro.Max(elem => elem.Tamanho)).FirstOrDefault().Tamanho,
                 hostName,
-                IP = Dns.GetHostByName(hostName).AddressList[0].ToString()
+                IP = Dns.GetHostByName(hostName).AddressList[0].ToString(),
+                InformacoesServidor = informacoesServidor
             });
         }
 
@@ -57,6 +60,27 @@ namespace MonitorRedis.Controllers
             var response = redis.GetDatabase().Execute("LLEN", fila.Nome);
             var responsearray = (RedisValue[])response;
             return Convert.ToInt32(responsearray.Last());
+        }
+
+        private List<InformacaoServidor> ObterInformacaoServidor(ConnectionMultiplexer redis)
+        {
+            var informacoesServidor = new List<InformacaoServidor>();
+
+            var infoRedis = redis.GetDatabase().Execute("INFO").ToString();
+
+            string[] stringSeparators = new string[] { "#" };
+            var result = infoRedis.Split(stringSeparators, StringSplitOptions.None);
+
+            foreach (var item in result.ToList())
+            {
+                if (string.IsNullOrEmpty(item))
+                    continue;
+
+                string titulo = item.Trim().Substring(0, item.Trim().IndexOf("\r\n"));
+                informacoesServidor.Add(new InformacaoServidor() { Titulo = titulo, Descricao = item.Trim() });
+            }
+
+            return informacoesServidor;
         }
 
         private ConnectionMultiplexer getConnectionRedis()

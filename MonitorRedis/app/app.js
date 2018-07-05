@@ -1,4 +1,4 @@
-﻿var app = angular.module('app', ['ngRoute']);
+﻿var app = angular.module('app', ['ngRoute', 'ngSanitize']);
 
 app.config(function ($routeProvider, $locationProvider) {
 
@@ -6,13 +6,16 @@ app.config(function ($routeProvider, $locationProvider) {
     //$locationProvider.html5Mode(true);
 
     $routeProvider
-    .when('/', {
-        templateUrl: 'views/Redis/index.html'
-    })
-    .when('/redis/detalhes/:id', {
-        templateUrl: 'views/Redis/detalhes.html'
-    })
-    .otherwise({
-        redirectTo: '/'
-    });
+        .when('/', {
+            templateUrl: 'views/Redis/index.html'
+        })
+        .when('/redis/info/', {
+            templateUrl: 'views/Redis/info.html'
+        })
+        .when('/redis/detalhes/:id', {
+            templateUrl: 'views/Redis/detalhes.html'
+        })
+        .otherwise({
+            redirectTo: '/'
+        });
 });
