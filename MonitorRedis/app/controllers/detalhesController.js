@@ -36,12 +36,11 @@
 
     $scope.excluir = function (item) {
         var msg = "<b>Você corrigiu este erro?</b></br>" +
-            "<b>Essa integração foi realizada?</b></br></br>" +
-            "<b style='font-style:italic'>Isso vale bolo hem!!!</b></br>";
+            "<b>Essa integração foi realizada?</b></br></br>";
 
         bootbox.confirm(msg, function (result) {
             if (result) {
-                redisService.excluir(id, item.ErrorTimeStamp).then(function () {
+                redisService.excluir(id, item.TimeStamp).then(function () {
                     $gritter.success('Erro excluído com sucesso!');
                     obterDetalhes(id);
                 });

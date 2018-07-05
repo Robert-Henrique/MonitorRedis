@@ -77,5 +77,10 @@
             $gritter.warning(quantidadeDeErros + ' ERRO(S) DE INTEGRAÇÃO!');
         else
             $gritter.error(quantidadeDeErros + ' ERROS DE INTEGRAÇÃO!');
-    }
+    };
+
+    $scope.voltar = function () {
+        var url = window.location.protocol + '//' + window.location.host + "#/";
+        window.location = url;
+    };
 });
