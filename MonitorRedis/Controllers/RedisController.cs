@@ -30,7 +30,7 @@ namespace MonitorRedis.Controllers
         [ActionName("ObterFilas")]
         public IHttpActionResult Get()
         {
-            ConnectionMultiplexer redis = getConnectionRedis();
+            ConnectionMultiplexer redis = GetConnectionRedis();
 
             foreach (var fila in filasIntegracao)
                 fila.Tamanho = ObterTamanhoDaFila(redis, fila);
@@ -83,9 +83,9 @@ namespace MonitorRedis.Controllers
             return informacoesServidor;
         }
 
-        private ConnectionMultiplexer getConnectionRedis()
+        private ConnectionMultiplexer GetConnectionRedis()
         {
-            var redisConf = new ConfigurationOptions();
+            var redisConf = new ConfigurationOptions();            
             redisConf.EndPoints.Add("localhost", 6379);
             redisConf.Password = "";
 
@@ -96,7 +96,7 @@ namespace MonitorRedis.Controllers
         [ActionName("ObterDetalhes")]
         public IHttpActionResult GetDetalhes(int id)
         {
-            ConnectionMultiplexer redis = getConnectionRedis();
+            ConnectionMultiplexer redis = GetConnectionRedis();
 
             var fila = filasIntegracaoComErro.Where(f => f.Id == id).FirstOrDefault();
             fila.Tamanho = ObterTamanhoDaFila(redis, fila);
@@ -122,7 +122,7 @@ namespace MonitorRedis.Controllers
         [HttpDelete]
         public IHttpActionResult Delete(int filaId, string errorTimeStamp)
         {
-            ConnectionMultiplexer redis = getConnectionRedis();
+            ConnectionMultiplexer redis = GetConnectionRedis();
 
             var fila = filasIntegracaoComErro.Where(f => f.Id == filaId).FirstOrDefault();
             fila.Tamanho = ObterTamanhoDaFila(redis, fila);
