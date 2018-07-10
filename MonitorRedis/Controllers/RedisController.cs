@@ -11,6 +11,17 @@ namespace MonitorRedis.Controllers
 {
     public class RedisController : ApiController
     {
+        static ConnectionMultiplexer _redisConnectionMultiplexer;
+
+        static RedisController()
+        {
+            var redisConf = new ConfigurationOptions();
+            redisConf.EndPoints.Add("localhost", 6379);
+            redisConf.Password = "";
+
+            _redisConnectionMultiplexer = ConnectionMultiplexer.Connect(redisConf);
+        }
+
         static List<Fila> filasIntegracao = new List<Fila>()
         {
             new Fila(1, "portal.integration.queue.dbsii", "dbSII - Integração", 0),
@@ -30,18 +41,13 @@ namespace MonitorRedis.Controllers
         [ActionName("ObterFilas")]
         public IHttpActionResult Get()
         {
-            ConnectionMultiplexer redis = GetConnectionRedis();
-
             foreach (var fila in filasIntegracao)
-                fila.Tamanho = ObterTamanhoDaFila(redis, fila);
+                fila.Tamanho = ObterTamanhoDaFila(fila);
 
             foreach (var fila in filasIntegracaoComErro)
-                fila.Tamanho = ObterTamanhoDaFila(redis, fila);
+                fila.Tamanho = ObterTamanhoDaFila(fila);
 
-            var informacoesServidor = ObterInformacaoServidor(redis);
-
-            redis.Close();
-            redis.Dispose();
+            var informacoesServidor = ObterInformacaoServidor();
 
             string hostName = Dns.GetHostName();
             return Ok(new
@@ -55,18 +61,18 @@ namespace MonitorRedis.Controllers
             });
         }
 
-        private int ObterTamanhoDaFila(ConnectionMultiplexer redis, Fila fila)
+        private int ObterTamanhoDaFila(Fila fila)
         {
-            var response = redis.GetDatabase().Execute("LLEN", fila.Nome);
+            var response = _redisConnectionMultiplexer.GetDatabase().Execute("LLEN", fila.Nome);
             var responsearray = (RedisValue[])response;
             return Convert.ToInt32(responsearray.Last());
         }
 
-        private List<InformacaoServidor> ObterInformacaoServidor(ConnectionMultiplexer redis)
+        private List<InformacaoServidor> ObterInformacaoServidor()
         {
             var informacoesServidor = new List<InformacaoServidor>();
 
-            var infoRedis = redis.GetDatabase().Execute("INFO").ToString();
+            var infoRedis = _redisConnectionMultiplexer.GetDatabase().Execute("INFO").ToString();
 
             string[] stringSeparators = new string[] { "#" };
             var result = infoRedis.Split(stringSeparators, StringSplitOptions.None);
@@ -76,34 +82,24 @@ namespace MonitorRedis.Controllers
                 if (string.IsNullOrEmpty(item))
                     continue;
 
-                string titulo = item.Trim().Substring(0, item.Trim().IndexOf("\r\n"));
+                var index = item.Trim().IndexOf("\r\n");
+
+                if (index < 0)
+                    continue;
+
+                string titulo = item.Trim().Substring(0, index);
                 informacoesServidor.Add(new InformacaoServidor() { Titulo = titulo, Descricao = item.Trim() });
             }
 
             return informacoesServidor;
         }
 
-        private ConnectionMultiplexer GetConnectionRedis()
-        {
-            var redisConf = new ConfigurationOptions();            
-            redisConf.EndPoints.Add("localhost", 6379);
-            redisConf.Password = "";
-
-            ConnectionMultiplexer redis = ConnectionMultiplexer.Connect(redisConf);
-            return redis;
-        }
-
         [ActionName("ObterDetalhes")]
         public IHttpActionResult GetDetalhes(int id)
         {
-            ConnectionMultiplexer redis = GetConnectionRedis();
-
             var fila = filasIntegracaoComErro.Where(f => f.Id == id).FirstOrDefault();
-            fila.Tamanho = ObterTamanhoDaFila(redis, fila);
-            var redisValues = redis.GetDatabase().ListRange(fila.Nome, 0, fila.Tamanho);
-
-            redis.Close();
-            redis.Dispose();
+            fila.Tamanho = ObterTamanhoDaFila(fila);
+            var redisValues = _redisConnectionMultiplexer.GetDatabase().ListRange(fila.Nome, 0, fila.Tamanho);
 
             fila.Erros = new List<object>();
 
@@ -122,11 +118,9 @@ namespace MonitorRedis.Controllers
         [HttpDelete]
         public IHttpActionResult Delete(int filaId, string errorTimeStamp)
         {
-            ConnectionMultiplexer redis = GetConnectionRedis();
-
             var fila = filasIntegracaoComErro.Where(f => f.Id == filaId).FirstOrDefault();
-            fila.Tamanho = ObterTamanhoDaFila(redis, fila);
-            var database = redis.GetDatabase();
+            fila.Tamanho = ObterTamanhoDaFila(fila);
+            var database = _redisConnectionMultiplexer.GetDatabase();
             var redisValues = database.ListRange(fila.Nome, 0, fila.Tamanho);
 
             if (redisValues.Length > 0)
@@ -143,9 +137,6 @@ namespace MonitorRedis.Controllers
                     }
                 }
             }
-
-            redis.Close();
-            redis.Dispose();
 
             return Ok();
         }
